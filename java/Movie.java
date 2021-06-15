@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class Movie implements Serializable{
 	private static final long serialVersionUID = -4274700572068677000L;
 	
-	private String movie_name; //¿µÈ­Á¦¸ñ
-	private String movie_id; //¿µÈ­ID
-	private String movie_class; //¿µÈ­µî±Ş
-	private String movie_genre; //¿µÈ­Àå¸£
-	private Integer movie_audience; //°ü°´¼ö
-	private String movie_url; //¿µÈ­Æ÷½ºÅÍurl
-	private String movie_story; //¿µÈ­½ºÅä¸®
+	private String movie_name; //ì˜í™”ì œëª©
+	private String movie_id; //ì˜í™”ID
+	private String movie_class; //ì˜í™”ë“±ê¸‰
+	private String movie_genre; //ì˜í™”ì¥ë¥´
+	private Integer movie_audience; //ê´€ê°ìˆ˜
+	private String movie_url; //ì˜í™”í¬ìŠ¤í„°url
+	private String movie_story; //ì˜í™”ìŠ¤í† ë¦¬
 	private int quantity; 
 	
 	public Movie() {
