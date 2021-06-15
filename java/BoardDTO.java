@@ -2,12 +2,12 @@ package model;
 
 public class BoardDTO {
 	
-	private int board_num; //¼ø¹ø
-	private String cust_id; //µî·ÏÀÚ ¾ÆÀÌµğ
-	private String board_title; //Á¦¸ñ
-	private String board_content; //³»¿ë
-	private String board_time; //µî·ÏÀÏÀÚ
-	private int board_availble; //°Ô½ÃÆÇ ±Û Ä«¿îÆ® (Áö¿öÁø ±ÛÀÎÁö ¾Æ´ÑÁö È®ÀÎ)
+	private int board_num; //ìˆœë²ˆ
+	private String cust_id; //ë“±ë¡ì ì•„ì´ë””
+	private String board_title; //ì œëª©
+	private String board_content; //ë‚´ìš©
+	private String board_time; //ë“±ë¡ì¼ì
+	private int board_availble; //ê²Œì‹œíŒ ê¸€ ì¹´ìš´íŠ¸ (ì§€ì›Œì§„ ê¸€ì¸ì§€ ì•„ë‹Œì§€ í™•ì¸)
 	
 	public int getBoard_num() {
 		return board_num;
