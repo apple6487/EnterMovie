@@ -1,12 +1,12 @@
 package model;
 
 public class movieBean {
-	private String movie_id; //¿µÈ­¾ÆÀÌµğ(°íÀ¯°ª)
-	private String movie_name; //¿µÈ­Á¦¸ñ
-	private String movie_class; //µî±Ş
-	private String movie_genre; //Àå¸£
-	private String movie_url; //¿µÈ­Æ÷½ºÅÍurl
-	private int movie_audience; //°ü°´¼ö
+	private String movie_id; //ì˜í™”ì•„ì´ë””(ê³ ìœ ê°’)
+	private String movie_name; //ì˜í™”ì œëª©
+	private String movie_class; //ë“±ê¸‰
+	private String movie_genre; //ì¥ë¥´
+	private String movie_url; //ì˜í™”í¬ìŠ¤í„°url
+	private int movie_audience; //ê´€ê°ìˆ˜
 	
 	public String getMovie_id() {
 		return movie_id;
