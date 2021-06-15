@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import model.BoardDTO;
 
-//DB Á¢±Ù °´Ã¼
+//DB ì ‘ê·¼ ê°ì²´
 public class BoardDAO {
 	
 	private Connection conn;
@@ -26,7 +26,7 @@ public class BoardDAO {
 		}
 	}
 	
-	//°Ô½ÃÆÇ ±Û ÀÛ¼ºÀ» À§ÇØ ÇöÀçÀÇ ½Ã°£ °¡Á®¿À´Â ÇÔ¼ö, °Ô½ÃÆÇ ±Û ÀÛ¼º ½Ã ÇöÀç ¼­¹öÀÇ ½Ã°£ Ç¥½Ã
+	//ê²Œì‹œíŒ ê¸€ ì‘ì„±ì„ ìœ„í•´ í˜„ì¬ì˜ ì‹œê°„ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜, ê²Œì‹œíŒ ê¸€ ì‘ì„± ì‹œ í˜„ì¬ ì„œë²„ì˜ ì‹œê°„ í‘œì‹œ
 	public String getDate() {
 		
 		String sql = "select NOW()";
@@ -40,10 +40,10 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ""; //µ¥ÀÌÅÍ º£ÀÌ½º ¿À·ù
+		return ""; //ë°ì´í„° ë² ì´ìŠ¤ ì˜¤ë¥˜
 	}
 	
-	public int getNext() { //°Ô½Ã±Û ¹øÈ£ Áõ°¡
+	public int getNext() { //ê²Œì‹œê¸€ ë²ˆí˜¸ ì¦ê°€
 		String sql = "select board_num from free_board order by board_num desc";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -51,42 +51,42 @@ public class BoardDAO {
 			if(rs.next()) {
 				return rs.getInt(1) + 1;
 			}
-			return 1; //Ã¹¹øÂ° °Ô½Ã¹°ÀÎ °æ¿ì
+			return 1; //ì²«ë²ˆì§¸ ê²Œì‹œë¬¼ì¸ ê²½ìš°
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; //µ¥ÀÌÅÍº£ÀÌ½º ¿À·ùÀÎ °æ¿ì
+		return -1; //ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜ì¸ ê²½ìš°
 	}
 	
-	public int write(String board_title, String cust_id, String board_content) { //½ÇÁ¦ ±Û ÀÛ¼º ÇÔ¼ö
+	public int write(String board_title, String cust_id, String board_content) { //ì‹¤ì œ ê¸€ ì‘ì„± í•¨ìˆ˜
 		String sql = "insert into free_board values(?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, getNext()); //°Ô½Ã¹° ¹øÈ£¶ó getNext() »ç¿ë
+			pstmt.setInt(1, getNext()); //ê²Œì‹œë¬¼ ë²ˆí˜¸ë¼ getNext() ì‚¬ìš©
 			pstmt.setString(2, cust_id);
 			pstmt.setString(3, board_title);
 			pstmt.setString(4, board_content);
 			pstmt.setString(5, getDate());
-			pstmt.setInt(6, 1); //»èÁ¦µÇ¾ú´ÂÁö ¾Æ´ÑÁö È®ÀÎ
+			pstmt.setInt(6, 1); //ì‚­ì œë˜ì—ˆëŠ”ì§€ ì•„ë‹Œì§€ í™•ì¸
 			
 			return pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; //µ¥ÀÌÅÍ º£ÀÌ½º ¿À·ù
+		return -1; //ë°ì´í„° ë² ì´ìŠ¤ ì˜¤ë¥˜
 	}
 	
-	//±Û ¸ñ·ÏÃ¢ ºÒ·¯¿À´Â ÇÔ¼ö
+	//ê¸€ ëª©ë¡ì°½ ë¶ˆëŸ¬ì˜¤ëŠ” í•¨ìˆ˜
 	public ArrayList<BoardDTO> getList(int pageNumber) {
 		String sql = "select * from free_board where board_num < ? and board_available = 1 order by board_num desc limit 10";
-		//ÀÎ½ºÅÏ½º¸¦ º¸°üÇÏ´Â ¸®½ºÆ® ÇÏ³ª ¸¸µê
+		//ì¸ìŠ¤í„´ìŠ¤ë¥¼ ë³´ê´€í•˜ëŠ” ë¦¬ìŠ¤íŠ¸ í•˜ë‚˜ ë§Œë“¦
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			//±Û Ãâ·Â °³¼ö
-			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10); //6º¸´Ù ÀÛÀº °Í¸¸ 
+			//ê¸€ ì¶œë ¥ ê°œìˆ˜
+			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10); //6ë³´ë‹¤ ì‘ì€ ê²ƒë§Œ 
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -107,31 +107,31 @@ public class BoardDAO {
 		return list;
 	}
 	
-	//10°³¹Û¿¡ ¾ø´Ù¸é ´ÙÀ½ ÆäÀÌÁö°¡ ¾ø´Â °É ¾Ë·ÁÁÖ´Â ÇÔ¼ö(ÆäÀÌÁö Ã³¸®)
+	//10ê°œë°–ì— ì—†ë‹¤ë©´ ë‹¤ìŒ í˜ì´ì§€ê°€ ì—†ëŠ” ê±¸ ì•Œë ¤ì£¼ëŠ” í•¨ìˆ˜(í˜ì´ì§€ ì²˜ë¦¬)
 	public boolean nextPage(int pageNumber) {
 		String sql = "select * from free_board where board_num < ? and board_available = 1";
-		//DTO Å¬·¡½º¿¡¼­ ³ª¿À´Â ÀÎ½ºÅÏ½º¸¦ º¸°üÇÏ´Â ¸®½ºÆ®
+		//DTO í´ë˜ìŠ¤ì—ì„œ ë‚˜ì˜¤ëŠ” ì¸ìŠ¤í„´ìŠ¤ë¥¼ ë³´ê´€í•˜ëŠ” ë¦¬ìŠ¤íŠ¸
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			//±Û Ãâ·Â °³¼ö
+			//ê¸€ ì¶œë ¥ ê°œìˆ˜
 			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
 			rs = pstmt.executeQuery();
 			
-			//°á°ú°¡ ÇÏ³ª¶óµµ Á¸ÀçÇÏ¸é ´ÙÀ½ÆäÀÌÁö·Î ³Ñ¾î°¥ ¼ö ÀÖ´Ù°í ¾Ë·ÁÁÜ
+			//ê²°ê³¼ê°€ í•˜ë‚˜ë¼ë„ ì¡´ì¬í•˜ë©´ ë‹¤ìŒí˜ì´ì§€ë¡œ ë„˜ì–´ê°ˆ ìˆ˜ ìˆë‹¤ê³  ì•Œë ¤ì¤Œ
 			if(rs.next()) {
 				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false; //¾Æ´Ï¸é false
+		return false; //ì•„ë‹ˆë©´ false
 	}
 	
-	//±Û ³»¿ëÀ» ºÒ·¯¿À´Â ÇÔ¼ö
+	//ê¸€ ë‚´ìš©ì„ ë¶ˆëŸ¬ì˜¤ëŠ” í•¨ìˆ˜
 	public BoardDTO getBoardDTO(int board_num) {
-		//Æ¯Á¤ °Ô½Ã±Û ¹øÈ£¿¡ ¸ğµç Á¤º¸¸¦ °¡Á®¿À´Â Äõ¸®¹®
+		//íŠ¹ì • ê²Œì‹œê¸€ ë²ˆí˜¸ì— ëª¨ë“  ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ëŠ” ì¿¼ë¦¬ë¬¸
 		String sql = "select * from free_board where board_num = ?";
 		
 		try {
@@ -140,7 +140,7 @@ public class BoardDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				//±Û¿¡ ´ëÇÑ Á¤º¸¸¦ ´ãÀ» °´Ã¼ »ı¼º
+				//ê¸€ì— ëŒ€í•œ ì •ë³´ë¥¼ ë‹´ì„ ê°ì²´ ìƒì„±
 				BoardDTO boardDTO = new BoardDTO();
 				
 				boardDTO.setBoard_num(rs.getInt(1));
@@ -155,11 +155,11 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//Á¤º¸°¡ ¾øÀ¸¸é null°ª ¹İÈ¯
+		//ì •ë³´ê°€ ì—†ìœ¼ë©´ nullê°’ ë°˜í™˜
 		return null;
 	}
 	
-	//±Û ¼öÁ¤ÇÏ´Â ÇÔ¼ö
+	//ê¸€ ìˆ˜ì •í•˜ëŠ” í•¨ìˆ˜
 	public int update(int board_num, String board_title, String board_content) {
 		String sql = "update free_board set board_title = ?, board_content = ? where board_num = ?";
 		
@@ -175,10 +175,10 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		
-		return -1; //µ¥ÀÌÅÍ º£ÀÌ½º ¿À·ù
+		return -1; //ë°ì´í„° ë² ì´ìŠ¤ ì˜¤ë¥˜
 	}
 	
-	//availableÀ» 0À¸·Î º¯°æÇÔÀ¸·Î½á È­¸é¿¡ Ç¥½ÃµÇÁö ¾Ê°Ô ÇÔ
+	//availableì„ 0ìœ¼ë¡œ ë³€ê²½í•¨ìœ¼ë¡œì¨ í™”ë©´ì— í‘œì‹œë˜ì§€ ì•Šê²Œ í•¨
 	public int delete(int board_num) {
 		String sql = "update free_board set board_available = 0 where board_num = ?";
 		
@@ -191,7 +191,7 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		
-		return -1; //µ¥ÀÌÅÍ º£ÀÌ½º ¿À·ù 
+		return -1; //ë°ì´í„° ë² ì´ìŠ¤ ì˜¤ë¥˜ 
 	}
 }
 
